@@ -1,20 +1,23 @@
 class Solution(object):
 	def decodeAtIndex(self, S, K):
-
-		tape = []
-		digit = [str(i) for i in xrange(1, 10)]
-
-		for i in S:
-			if i not in digit:
-				tape.append()
+		size = 0
+		for s in S:
+			if s.isdigit():
+				size *= int(s)
 			else:
+				size += 1
+
+		for i in xrange(len(S) - 1, -1, -1):
+			K %= size
+
+			if S[i].isdigit():
+				size /= int(S[i])
+			elif K == 0:
+				return S[i]
+			else:
+				size -= 1
 
 
-			if len(tape) >= K:
-				return tape[K - 1]
+S = "ha2s2"
 
-
-S = "ha22"
-K = 5
-
-print Solution.decodeAtIndex(S,K)
+print Solution().decodeAtIndex(S, 9)
