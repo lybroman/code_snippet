@@ -1,68 +1,33 @@
-class LazyProperty(object):
-	def __init__(self, func):
-		self.func = func
+import sys
+import imp
 
-	def __get__(self, instance, cls):
-		if instance is None:
-			return self
-		else:
-			value = self.func(instance)
-			setattr(instance, self.func.__name__, value)
-			return value
+_lazy_modules = {}
 
 
-class ImmutableLazyProperty(object):
-	def __init__(self, func):
-		self.func = func
+class LazyModule():
+	def __init__(self, name):
+		self.name = name
 
-	def __get__(self, instance, cls):
-		if instance is None:
-			return self
-		else:
-			prop = '_lazy_' + self.func.__name__
+	def __getattr__(self, attr):
+		path = _lazy_modules[self.name]
+		f, pathname, desc = imp.find_module(self.name, path)
 
-			if hasattr(instance, prop):
-				return instance.__dict__[prop]
-			else:
-				value = self.func(instance)
-				setattr(instance, prop, value)
-				return value
+		lf = sys.meta_path.pop()
+		imp.load_module(self.name, f, pathname, desc)
+		sys.meta_path.append(lf)
+
+		self.__dict__ = sys.modules[self.name].__dict__
+		return self.__dict__[attr]
 
 
-# also immutable
-def lazyproperty(func):
-	name = '_lazy_' + func.__name__
+class LazyFinder(object):
 
-	@property
-	def lazy(self):
-		if hasattr(self, name):
-			return getattr(self, name)
-		else:
-			value = func(self)
-			setattr(self, name, value)
-			return value
-	return lazy
+	def find_module(self, name, path):
+		_lazy_modules[name] = path
+		return self
+
+	def load_module(self, name):
+		return LazyModule(name)
 
 
-class Foo(object):
-	@LazyProperty
-	def bar(self):
-		# some intensive task
-		return 'bar'
-
-	@ImmutableLazyProperty
-	def baz(self):
-		# some intensive task
-		return 'baz'
-
-	@lazyproperty
-	def qux(self):
-		# some intensive task
-		return 'qux'
-
-
-foo = Foo()
-print foo.__dict__
-print foo.bar, foo.baz, foo.qux
-print foo.__dict__
-
+sys.meta_path.append(LazyFinder())
