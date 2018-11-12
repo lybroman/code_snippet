@@ -34,6 +34,3 @@ print longest_prefix_name(names)
 
 
 
-
-
-
