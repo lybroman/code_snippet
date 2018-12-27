@@ -54,3 +54,57 @@ def bubble_sort(target):
 print insert_sort(nums)
 print shell_sort(nums)
 print bubble_sort(nums)
+
+
+# o(n) ~ o(n^2)
+def gnome_sort(target):
+	seq = target[:]
+	i = 0
+	while i < len(seq):
+		if i == 0 or seq[i] >= seq[i - 1]:
+			i += 1
+		else:
+			seq[i - 1], seq[i] = seq[i], seq[i - 1]
+			i -= 1
+	return seq
+
+
+print gnome_sort(nums)
+
+
+# o(nlgn), o(n) space
+def merge_sort(target):
+	seq = target[:]
+
+	mid = (0 + len(seq)) / 2
+	left_halves = seq[:mid]
+	right_halves = seq[mid:]
+
+	if len(left_halves) > 1:
+		left_halves = merge_sort(left_halves)
+	if len(right_halves) > 1:
+		right_halves = merge_sort(right_halves)
+
+	res = []
+
+	while left_halves and right_halves:
+		if left_halves[-1] > right_halves[-1]:
+			res.append(left_halves.pop())
+		else:
+			res.append(right_halves.pop())
+
+	res.reverse()
+	return (left_halves or right_halves) + res
+
+
+print nums, merge_sort(nums)
+
+
+
+
+
+
+
+
+
+
