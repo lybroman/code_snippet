@@ -96,7 +96,7 @@ def ssc(G):
 
 
 		sscs = []
-		for n in G:
+		for n in seq:
 			res = _iter(G, n)
 			if res: sscs.append(res)
 
