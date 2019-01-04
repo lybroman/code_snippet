@@ -158,6 +158,32 @@ G = {
 }
 
 
+def dfs_top_sort(G):
+	visited = set()
+	res = []
+
+	def recur_dfs(s):
+		if s in visited:
+			return
+
+		visited.add(s)
+
+		for v in G[s]:
+			recur_dfs(v)
+
+		print s
+		res.append(s)
+
+	for n in G:
+		recur_dfs(n)
+
+	res.reverse()
+	return res
+
+
+print dfs_top_sort(G)
+
+
 def top_sort(G):
 	from collections import defaultdict
 	cm, res = defaultdict(int), []
