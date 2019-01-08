@@ -1,31 +1,57 @@
-import heapq
-buildings = [[2, 9, 10], [3, 7, 15], [5, 12, 12], [15, 20, 10], [19, 24, 8]]
+class MyHeap(object):
+	def __init__(self):
+		self.data = []
+
+	def heapify(self, data):
+		self.data = data
+		for i in reversed(range(len(data))):
+			self._sift_up(i)
+
+	def heap_push(self, x):
+		self.data.append(x)
+		self._sift_down(0, len(self.data) -1)
+
+	def _sift_down(self, start, pos):
+		new_item = self.data[pos]
+		while pos > start:
+			parent = (pos - 1) >> 1
+			if self.data[parent] > new_item:
+				self.data[pos] = self.data[parent]
+				pos = parent
+				continue
+			break
+		self.data[pos] = new_item
+
+	def heap_pop(self):
+		last_item = self.data.pop()
+		if self.data:
+			return_item = self.data[0]
+			self.data[0] = last_item
+			self._sift_up(0)
+			return return_item
+		return last_item
+
+	def _sift_up(self, pos):
+		l = len(self.data)
+		new_item = self.data[pos]
+		start_pos = pos
+		child_index = 2 * pos + 1
+		while child_index < l:
+			if child_index + 1 < l and self.data[child_index + 1] < self.data[child_index]:
+				child_index += 1
+
+			self.data[pos] = self.data[child_index]
+			pos = child_index
+			child_index = 2 * child_index + 1
+		self.data[pos] = new_item
+		self._sift_down(start_pos, pos)
 
 
-def generate_skyline(buildings):
-	events = sorted([(L, -H, R) for L, R, H in buildings] + list({(R, 0, None) for _, R, _ in buildings}))
-	res, hp = [[0, 0]], [(0, float("inf"))]
-	for x, negH, R in events:
-		while x >= hp[0][1]:
-			heapq.heappop(hp)
-		if negH:
-			heapq.heappush(hp, (negH, R))
-		if res[-1][1] + hp[0][0]:
-			# list += extend the list
-			res += [x, -hp[0][0]],
-	return res[1:]
+data = [97, 38, 27, 50, 76, 65, 49, 13]
 
+heap = MyHeap()
 
-print generate_skyline(buildings)
+heap.heapify(data)
 
-
-hp = [3, 1, 2, 0, 8, 9]
-heapq.heapify(hp)
-print hp
-
-# private method
-heapq._heapify_max(hp)
-print hp
-
-
+print heap.data
 
