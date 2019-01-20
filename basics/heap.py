@@ -4,12 +4,12 @@ class MyHeap(object):
 
 	def heapify(self, data):
 		self.data = data
-		for i in reversed(range(len(data))):
+		for i in reversed(range(len(data) // 2)):
 			self._sift_up(i)
 
 	def heap_push(self, x):
 		self.data.append(x)
-		self._sift_down(0, len(self.data) -1)
+		self._sift_down(0, len(self.data) - 1)
 
 	def _sift_down(self, start, pos):
 		new_item = self.data[pos]
