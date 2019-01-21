@@ -206,6 +206,40 @@ def top_sort(G):
 print top_sort(G)
 
 
+# Quick Sort Basics
+# O(n) Select k-th smallest pivot
+# T(n) = T(n/2) + n
+def partition(seq):
+	pi, seq = seq[0], seq[1:]
+	lo = [x for x in seq if x <= pi]
+	hi = [x for x in seq if x > pi]
+	return lo, hi, pi
+
+
+def selection(k, seq):
+	lo, hi, pi = partition(seq)
+	m = len(lo)
+	if m == k - 1:
+		return pi
+	if m > k - 1:
+		return selection(k, lo)
+	else:
+		return selection(k - m - 1, hi)
+
+
+seq = [9, 4, 5, 6, 1, 2, 3, 8, 7]
+print selection(5, seq)
+
+
+# avg: T(n) = 2T(n/2) + O(n) = O(nlgn)
+def quick_sort(seq):
+	if len(seq) < 1: return seq
+	lo, hi, pi = partition(seq)
+	return quick_sort(lo) + [pi] + quick_sort(hi)
+
+
+print quick_sort(seq)
+
 
 
 
