@@ -107,11 +107,11 @@ def dijkstra_multi_nodes_dist_graph(edges, source, target_nodes):
 
 			prev_min_dist = dists.get(dest, None)
 			cur_dist = dist + weight
-			#print dest, prev_min_dist, cur_dist
+			# print dest, prev_min_dist, cur_dist
 			if not prev_min_dist or cur_dist < prev_min_dist:
 				dists[dest] = cur_dist
 				heapq.heappush(queue, (cur_dist, dest, path))
-		#print queue, nodes
+		# print queue, nodes
 
 	print dists
 

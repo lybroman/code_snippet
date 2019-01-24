@@ -183,9 +183,33 @@ def generate_binary_tree_from_sorted_array(sorted_list):
 	return root
 
 
+def tree_depth(root):
+	if not root:
+		return 0
+	else:
+		return max(tree_depth(root.left), tree_depth(root.right)) + 1
+
+
+def is_balanced(root):
+	if not root:
+		return True
+
+	lh = tree_depth(root.left)
+	rh = tree_depth(root.right)
+
+	return (lh - rh) <= 1 and is_balanced(root.left) and is_balanced(root.right)
+
+
 if __name__ == '__main__':
 
-	root = generate_tree_from_list(['F', 'B', 'G', 'A', 'D', 'null', 'I', 'null', 'null', 'C', 'E', 'null', 'null', 'H'])
+	root = generate_tree_from_list(
+		['F', 'B', 'G', 'A', 'D', 'null', 'I', 'null', 'null', 'C', 'E',
+			'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'H'])
+	print level_order_traverse(root)
+
+	print tree_depth(root)
+	print is_balanced(root)
+
 	ans = []
 	inorder_traverse_1(root, ans)
 	print ans
@@ -205,9 +229,8 @@ if __name__ == '__main__':
 	print level_order_traverse(root)
 
 	sorted_list = [1, 2, 3, 4, 5, 6, 7, 8]
-	root =  generate_binary_tree_from_sorted_array(sorted_list)
+	root = generate_binary_tree_from_sorted_array(sorted_list)
 	print level_order_traverse(root)
-
 
 
 
