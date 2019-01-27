@@ -134,7 +134,7 @@ if __name__ == "__main__":
 	]
 
 	print "=== Dijkstra Distance Graph==="
-	#print dijkstra_dist_graph(edges, "A")
+	print dijkstra_dist_graph(edges, "A")
 
 	print "=== Dijkstra Min Distance==="
 	print dijkstra_min_dist(edges, "A", "E")
