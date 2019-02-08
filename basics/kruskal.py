@@ -33,7 +33,9 @@ def union(C, R, u, v):
 
 
 def kruskal(nodes, edges):
+	# representatives
 	C = {n: n for n in nodes}
+	# ranks
 	R = {n: 0 for n in nodes}
 	E = [(e[2], e[0], e[1]) for e in edges]
 	E.sort()

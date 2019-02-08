@@ -1,3 +1,5 @@
+# non-negative edges graph
+
 import heapq
 from collections import defaultdict
 
