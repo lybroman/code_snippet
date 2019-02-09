@@ -1,6 +1,6 @@
 # all pairs min dist
 # negative weight
-# O(E * VlgE)
+# O(V * ElgV)
 
 from heapq import heappush, heappop
 from copy import deepcopy
@@ -59,6 +59,18 @@ def dijkstra(G, s):
 			relax(G, u, v, D, P)
 			heappush(Q, (D[v], v))
 	return D, P
+
+
+def idijjstra(G, s):
+	Q, S = [(0, s)], set()
+	while Q:
+		d, u = heappop(Q)
+		if u in S:
+			continue
+		yield d, u
+		S.add(u)
+		for v in G[u]:
+			heappush(Q, (G[u][v] + d, v))
 
 
 def johnson(G):

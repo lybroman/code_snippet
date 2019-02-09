@@ -38,6 +38,9 @@ def dijkstra_dist_graph(edges, source):
 	return dists
 
 
+# binary heap O((V + E) * lgV)
+# V is O(E)
+# ElgV
 def dijkstra_min_dist(edges, source, destination):
 
 	graph = defaultdict(list)
