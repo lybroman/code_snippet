@@ -19,7 +19,7 @@ class Task(object):
         try:
             next_future = self.coro.send(future.result)
         except StopIteration:
-            print("All subtask are done!")
+            print("All sub-tasks are done!")
             return
 
         next_future.add_done_callback(self.step)
@@ -40,6 +40,7 @@ class Future(object):
 
     def __iter__(self):
         result = yield self
+        # result of yield from
         return result
 
 

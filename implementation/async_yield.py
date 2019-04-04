@@ -29,7 +29,7 @@ class Task(object):
         try:
             next_future = self.coro.send(future.result)
         except StopIteration:
-            print("All subtask are done!")
+            print("All sub-tasks are done!")
             return
 
         next_future.add_done_callback(self.step)
@@ -86,6 +86,7 @@ urls_todo = {'/1', '/2', '/3'}
 for url in urls_todo:
     Task(Crawler(url).fetch())
 
+print('event loop...')
 while not stopped:
     events = selector.select()
     for event_key, event_mask in events:
