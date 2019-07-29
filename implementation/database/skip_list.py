@@ -38,12 +38,12 @@ class SkipList(object):
 			return False
 
 		if expected_height > self.current_height:
-			for i in xrange(self.current_height, expected_height):
+			for i in range(self.current_height, expected_height):
 				update[i] = self.header
 			self.current_height = expected_height
 
 		added_node = SkipListNode(val)
-		for i in xrange(0, expected_height):
+		for i in range(0, expected_height):
 			added_node.forward[i] = update[i].forward[i]
 			update[i].forward[i] = added_node
 
@@ -63,7 +63,7 @@ class SkipList(object):
 
 		if current_node.forward[0] and current_node.forward[0].val == val:
 			target_node = current_node.forward[0]
-			for i in xrange(self.current_height):
+			for i in range(self.current_height):
 				if update[i].forward[i] == target_node:
 					update[i].forward[i] = target_node.forward[i]
 					if not self.header.forward[i]:
@@ -82,7 +82,7 @@ class SkipList(object):
 				current_node = current_node.forward[i]
 
 			if current_node.forward[i].val == val:
-				print 'find element {} on layer {}'.format(val, i)
+				print('find element {} on layer {}'.format(val, i))
 				return val
 			else:
 				i -= 1
@@ -91,7 +91,7 @@ class SkipList(object):
 
 	def __repr__(self):
 		layers = []
-		for i in xrange(self.current_height):
+		for i in range(self.current_height):
 			x = self.header
 			layer = []
 			while x.forward[self.current_height - i - 1]:
@@ -112,17 +112,17 @@ if __name__ == '__main__':
 	skpl.insert(3)
 	skpl.insert(4)
 
-	print skpl
+	print(skpl)
 
-	print '*' * 30
+	print('*' * 30)
 
 	skpl.remove(4)
 
-	print skpl
+	print(skpl)
 
-	print '*' * 30
+	print('*' * 30)
 
-	print skpl.search(0)
+	print(skpl.search(0))
 
 
 

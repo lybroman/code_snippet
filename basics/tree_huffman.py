@@ -5,7 +5,8 @@ from itertools import count
 
 def huffman(seq, frq):
 	num = count()
-	trees = zip(frq, num, seq)
+	trees = list(zip(frq, num, seq))
+	print(trees)
 	heapify(trees)
 	while len(trees) > 1:
 		fa, _, a = heappop(trees)
@@ -21,6 +22,8 @@ seq = 'abcdefghi'
 
 huffman_tree = huffman(seq, frq)
 
+print(huffman_tree)
+
 
 def codecs(tree, prefix=''):
 	if len(tree) == 1:
@@ -33,4 +36,4 @@ def codecs(tree, prefix=''):
 
 
 for code, prefix in codecs(huffman_tree, "b"):
-	print code, ':', prefix
+	print(code, ':', prefix)

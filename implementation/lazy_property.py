@@ -1,3 +1,4 @@
+from __future__ import print_function
 class LazyProperty(object):
 	def __init__(self, func):
 		self.func = func
@@ -62,7 +63,7 @@ class Foo(object):
 
 
 foo = Foo()
-print foo.__dict__
-print foo.bar, foo.baz, foo.qux
-print foo.__dict__
+print(foo.__dict__)
+print(foo.bar, foo.baz, foo.qux)
+print(foo.__dict__)
 

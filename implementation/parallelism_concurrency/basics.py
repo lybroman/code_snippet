@@ -76,7 +76,6 @@ def test_asyncio_uvloop():
     event_loop = asyncio.get_event_loop()
     event_loop.run_until_complete(asyncio.wait(coros))
     event_loop.close()
-    asyncio.Future
 
 
 print(timeit.timeit('test_thread()        ', setup="from __main__ import test_thread        ", number=10) / 10)

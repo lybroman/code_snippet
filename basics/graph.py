@@ -48,7 +48,6 @@ G = {
 	'i': {'h'}
 }
 
-
 # strongly connected components
 def ssc(G):
 	from collections import defaultdict
@@ -67,7 +66,6 @@ def ssc(G):
 				seen.add(s)
 				for n in G[s]:
 					_recur(G, n)
-
 				res.append(s)
 
 		for n in G:
@@ -104,4 +102,4 @@ def ssc(G):
 
 	return iter_dfs(inv_G)
 
-print ssc(G)
+print(ssc(G))
